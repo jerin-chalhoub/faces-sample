@@ -1,6 +1,5 @@
-import { connect } from 'react-redux';
-
-const apiBase = 'https://development-eu01-chalhoub.demandware.net/s/Faces_AE/dw/shop/v19_1/'
+import {API_BASE_URL, CLIENT_ID} from '@env'
+import store from '../Store';
 
 class APIClient {
     constructor(resource) {
@@ -12,8 +11,11 @@ class APIClient {
     }
 
     call(callback) {
-        let locale = "locale="+ currentLanguage + "-AE"
-        var url = apiBase + this.resource;
+
+        const state = store.getState();
+        
+        let locale = "locale="+ state.selectedLanguage + "-AE"
+        var url = API_BASE_URL + this.resource;
         if (url.includes('?')) {
             url = url + "&" + locale
         } else {
@@ -23,7 +25,7 @@ class APIClient {
             method: this.method,
             headers: {
               'Content-Type': 'application/json',
-              'x-dw-client-id': 'b2f6f2b2-0159-4cc3-b3ec-c4a9ae246d61'
+              'x-dw-client-id': CLIENT_ID
             }
           })
             .then((response) => response.json())

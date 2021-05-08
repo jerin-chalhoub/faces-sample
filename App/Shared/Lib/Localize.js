@@ -4,8 +4,6 @@ import i18n from "i18n-js";
 import memoize from "lodash.memoize";
 import { I18nManager } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import store from '../Store'
-import setLanguageAction from '../Store/actions'
 
 const translationGetters = {
     // lazy requires (metro bundler does not support symlinks)
@@ -46,8 +44,6 @@ const setLanguage = (languageTag, completion) => {
     // set i18n-js config
     i18n.translations = { [languageTag]: translationGetters[languageTag]() };
     i18n.locale = languageTag;
-
-    currentLanguage = languageTag
 
     AsyncStorage.setItem("language_key", languageTag, function(error) {
         completion(languageTag);
