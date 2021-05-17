@@ -40,6 +40,8 @@ android/app/build
 ios/Pods
 *.xcworkspace
 
+local.properties
+
 # Dependency directories
 node_modules/
 jspm_packages/
